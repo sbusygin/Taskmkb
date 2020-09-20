@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class AssessmentServiceImpl implements AssessmentService {
     @Autowired
-    private AssessmentRepository repository1;
+    private AssessmentRepository repository;
 
     @Override
     public Assessment save(Assessment assessment) {
