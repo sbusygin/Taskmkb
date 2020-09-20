@@ -7,7 +7,7 @@ import java.util.Objects;
 
 @Access(AccessType.FIELD)
 @MappedSuperclass
-@AllArgsConstructor
+@NoArgsConstructor
 public class AbstractObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
