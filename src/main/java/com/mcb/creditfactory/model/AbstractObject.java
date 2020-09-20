@@ -3,11 +3,17 @@ package com.mcb.creditfactory.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 
 @Access(AccessType.FIELD)
 @MappedSuperclass
 @NoArgsConstructor
+@Setter
+@Getter
+@AllArgsConstructor
+@ToString
 public class AbstractObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,13 +24,16 @@ public class AbstractObject {
     @Column(name = "year_of_issue")
     private Short year;
 
-    public AbstractObject (Long id, String brand, String model, Short year) {
+    public AbstractObject(Long id, String brand, String model, Short year) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.year = year;
+        this.assessments = Collections.emptyList();
     }
 
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<Assessment> assessments;
 
     @Override
     public boolean equals(Object o) {
@@ -40,5 +49,4 @@ public class AbstractObject {
     public int hashCode() {
         return Objects.hash(id, brand, model);
     }
-
 }
