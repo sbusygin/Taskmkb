@@ -8,6 +8,8 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @JsonTypeName("car")
 public class CarDto implements Collateral {
     private Long id;

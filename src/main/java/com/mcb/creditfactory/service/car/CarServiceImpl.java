@@ -2,12 +2,16 @@ package com.mcb.creditfactory.service.car;
 
 import com.mcb.creditfactory.dto.CarDto;
 import com.mcb.creditfactory.external.ExternalApproveService;
+import com.mcb.creditfactory.model.Assessment;
 import com.mcb.creditfactory.model.Car;
 import com.mcb.creditfactory.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.Optional;
+
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -38,10 +42,9 @@ public class CarServiceImpl implements CarService {
                 dto.getId(),
                 dto.getBrand(),
                 dto.getModel(),
-                dto.getPower(),
                 dto.getYear(),
-                dto.getValue()
-        );
+                dto.getPower()
+                );
     }
 
     @Override
@@ -52,12 +55,23 @@ public class CarServiceImpl implements CarService {
                 car.getModel(),
                 car.getPower(),
                 car.getYear(),
-                car.getValue()
+                getLastAssessment(car)
         );
     }
 
     @Override
     public Long getId(Car car) {
         return car.getId();
+    }
+
+    private BigDecimal getLastAssessment(Car car) {
+        if (car.getId()!=null) {
+            return car.getAssessments().stream()
+                    .max(Comparator.comparing(Assessment::getLocalDate))
+                    .get().getAssessedValue();}
+        else
+        {
+            return null;
+        }
     }
 }
