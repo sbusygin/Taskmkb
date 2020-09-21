@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonTypeName("airplane")
-public class AirplaneDto {
+public class AirplaneDto implements Collateral {
     private Long id;
     private String brand;
     private String model;
